@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Midnight Pages | Read Together</title>
+    <style>
+        
+
+        :root {
+            --ink: #282638;
+            --muted: #777487;
+            --purple: #2448d7;
+            --line: #eceaf1;
+            --paper: #faf9f7
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            background-image: url(Beauty.gif);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font: inherit
+        }
+
+        button {
+            cursor: pointer
+        }
+
+        .topbar {
+            height: 76px;
+            padding: 0 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #060606;
+            border-bottom: 1px solid var(--line);
+            position: sticky;
+            top: 0;
+            z-index: 5
+        }
+
+        .brand {
+            text-decoration: none;
+            color: var(--paper);
+            font: 800 21px Manrope;
+            display: flex;
+            gap: 10px;
+            align-items: center
+        }
+
+        .brand b {
+            background: var(--paper);
+            color: rgb(14, 13, 13);
+            border-radius: 10px;
+            padding: 5px 11px
+        }
+
+        .topbar nav {
+            display: flex;
+            gap: 7px
+        }
+
+        .nav-link {
+            border: 0;
+            background: white;
+            padding: 10px 13px;
+            border-radius: 9px;
+            color: var(--purple);
+            font-weight: 700
+        }
+
+        .nav-link.active,
+        .nav-link:hover {
+            background: white;
+            color: var(--ink)
+        }
+
+        .account {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            font-size: 12px;
+            color: var(--line)
+        }
+
+        .btn {
+            border: 0;
+            border-radius: 10px;
+            padding: 11px 16px;
+            font-weight: 700
+        }
+
+        .primary {
+            background: var(--ink);
+            color: #fff
+        }
+
+        .light {
+            background: #f1f0f5;
+            color: var(--ink)
+        }
+
+        .outline {
+            background: transparent;
+            border: 1px solid #d9d5e5;
+            color: var(--ink)
+        }
+
+        .hidden {
+            display: none !important
+        }
+
+        main {
+            max-width: 1120px;
+            margin: auto;
+            padding: 45px 25px 75px;
+            min-height: 72vh
+        }
+
+        .page {
+            display: none
+        }
+
+        .page.active {
+            display: block
+        }
+
+        .hero {
+            background: #2448d7;
+            border-radius: 25px;
+            padding: 60px 7%;
+            display: grid;
+            grid-template-columns: 1.2fr .8fr;
+            align-items: center;
+            min-height: 390px
+        }
+
+        .hero small,
+        .heading small,
+        .page-heading small,
+        .callout small {
+            color: var(--ink);
+            font-weight: 800;
+            letter-spacing: 2px
+        }
+
+        .hero h1 {
+            font: 800 clamp(38px, 5vw, 58px)/1.1 Manrope;
+            letter-spacing: -2px;
+            margin: 14px 0
+        }
+
+        .hero h1 em {
+            color: var(--line);
+            font-style: normal
+        }
+
+        .hero p,
+        .page-heading p {
+            color: var(--line);
+            line-height: 1.7;
+            max-width: 490px
+        }
+
+        .hero-book {
+            justify-self: center;
+            width: 190px;
+            height: 240px;
+            border-radius: 12px;
+            background: linear-gradient(140deg, #0e0e0e, #343435);
+            box-shadow: 18px 18px #535354;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            font-size: 48px;
+            transform: rotate(-7deg)
+        }
+
+        .hero-book strong {
+            font: 800 22px Manrope
+        }
+
+        .hero-book span {
+            font-size: 10px;
+            letter-spacing: 1px
+        }
+
+        .heading,
+        .page-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 20px;
+            margin: 50px 0 22px
+        }
+
+        .heading h2,
+        .panel h2 {
+            font: 700 24px Manrope;
+            margin: 8px 0
+        }
+
+        .heading p {
+            color: var(--purple);
+            font-size: 13px
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 17px
+        }
+
+        .features article,
+        .panel,
+        .book-card,
+        .club-card {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 23px;
+            box-shadow: 0 10px 30px #2b24400a
+        }
+
+        .features i {
+            display: grid;
+            place-items: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
+            background: #f0edff;
+            color: var(--ink);
+            font-size: 23px;
+            font-style: normal
+        }
+
+        .features h3 {
+            font: 700 17px Manrope
+        }
+
+        .features p {
+            font-size: 13px;
+            color: var(--purple);
+            line-height: 1.6
+        }
+
+        .text-btn {
+            border: 0;
+            background: none;
+            color: var(--ink);
+            font-weight: 700;
+            padding: 5px 0
+        }
+
+        .callout {
+            margin-top: 45px;
+            background: #454546;
+            color: white;
+            border-radius: 18px;
+            padding: 28px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        .callout h2 {
+            margin: 8px 0
+        }
+
+        .callout p {
+            font-size: 13px;
+            color: #c7c4d1
+        }
+
+        .page-heading {
+            margin: 0 0 25px
+        }
+
+        .page-heading h1 {
+            font: 800 39px Manrope;
+            margin: 8px 0
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 22px
+        }
+
+        .toolbar input,
+        .toolbar select {
+            border: 1px solid var(--line);
+            background: white;
+            border-radius: 10px;
+            padding: 13px;
+            flex: 1;
+            min-width: 0
+        }
+
+        .book-grid,
+        .club-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 17px
+        }
+
+        .book-card {
+            padding: 0;
+            overflow: hidden
+        }
+
+        .cover {
+            height: 130px;
+            background: linear-gradient(135deg, #efedff, #fcebe3);
+            display: grid;
+            place-items: center;
+            font-size: 45px
+        }
+
+        .book-info {
+            padding: 18px
+        }
+
+        .book-info h3,
+        .club-card h3 {
+            font: 700 17px Manrope;
+            margin: 10px 0 4px
+        }
+
+        .muted,
+        .author {
+            font-size: 12px;
+            color: var(--purple)
+        }
+
+        .book-info p,
+        .club-card p {
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--purple);
+            min-height: 38px
+        }
+
+        .tag {
+            font-size: 10px;
+            color: var(--purple);
+            background: #f0edff;
+            padding: 5px 8px;
+            border-radius: 20px
+        }
+
+        .progress {
+            height: 7px;
+            background: #eeedf3;
+            border-radius: 20px;
+            margin: 10px 0;
+            overflow: hidden
+        }
+
+        .progress span {
+            display: block;
+            height: 100%;
+            background: var(--purple)
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px
+        }
+
+        .actions .btn {
+            font-size: 11px;
+            padding: 9px 11px
+        }
+
+        .club-card .btn {
+            margin-top: 10px
+        }
+
+        .club-detail {
+            margin-top: 22px
+        }
+
+        .club-chat {
+            background: #faf9fd;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px 0
+        }
+
+        .message {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--line);
+            font-size: 13px
+        }
+
+        .chat-form {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px
+        }
+
+        .chat-form input {
+            flex: 1;
+            min-width: 0;
+            border: 1px solid var(--line);
+            border-radius: 9px;
+            padding: 11px
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 13px;
+            margin-bottom: 20px
+        }
+
+        .stat {
+            background: white;
+            border: 1px solid var(--line);
+            border-radius: 13px;
+            padding: 18px
+        }
+
+        .stat span {
+            font-size: 12px;
+            color: var(--purple)
+        }
+
+        .stat strong {
+            display: block;
+            font: 800 27px Manrope;
+            margin-top: 8px
+        }
+
+        .columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px
+        }
+
+        .panel {
+            margin-bottom: 16px
+        }
+
+        .row {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--line);
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px
+        }
+
+        .row:last-child {
+            border: 0
+        }
+
+        .empty {
+            text-align: center;
+            color: var(--purple);
+            padding: 24px;
+            font-size: 13px
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: #17152888;
+            display: grid;
+            place-items: center;
+            padding: 18px;
+            z-index: 20
+        }
+
+        .modal-card {
+            background: white;
+            border-radius: 18px;
+            padding: 28px;
+            width: min(470px, 100%);
+            max-height: 90vh;
+            overflow: auto;
+            position: relative
+        }
+
+        .close {
+            position: absolute;
+            right: 14px;
+            top: 9px;
+            border: 0;
+            background: none;
+            font-size: 26px;
+            color: var(--purple)
+        }
+
+        .modal-card h2 {
+            font: 700 24px Manrope;
+            margin: 5px 0
+        }
+
+        .intro {
+            font-size: 13px;
+            color: var(--purple);
+            line-height: 1.5
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin: 13px 0
+        }
+
+        .field label {
+            font-size: 12px;
+            font-weight: 700
+        }
+
+        .field input,
+        .field select,
+        .field textarea {
+            border: 1px solid var(--line);
+            border-radius: 9px;
+            padding: 11px;
+            width: 100%;
+            font: inherit
+        }
+
+        .field textarea {
+            min-height: 80px
+        }
+
+        .wide {
+            width: 100%;
+            margin-top: 8px
+        }
+
+        .error {
+            color: #c44;
+            font-size: 12px;
+            min-height: 16px
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 22px;
+            left: 50%;
+            transform: translate(-50%, 20px);
+            opacity: 0;
+            background: #292638;
+            color: white;
+            border-radius: 10px;
+            padding: 12px 18px;
+            font-size: 13px;
+            transition: .2s;
+            z-index: 30
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translate(-50%, 0)
+        }
+
+        footer {
+            text-align: center;
+            background: #fff;
+            border-top: 1px solid var(--line);
+            padding: 25px
+        }
+
+        footer .brand {
+            justify-content: center
+        }
+
+        footer p,
+        footer small {
+            color: var(--purple);
+            font-size: 12px
+        }
+
+        @media(max-width:800px) {
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 30px
+            }
+
+            .hero-book {
+                height: 190px
+            }
+
+            .book-grid,
+            .club-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        @media(max-width:580px) {
+            .topbar {
+                height: auto;
+                flex-wrap: wrap;
+                padding: 12px 15px;
+                gap: 10px
+            }
+
+            .topbar nav {
+                order: 3;
+                width: 100%;
+                justify-content: space-between
+            }
+
+            .nav-link {
+                padding: 8px;
+                font-size: 12px
+            }
+
+            .account span {
+                display: none
+            }
+
+            .account .btn {
+                padding: 9px;
+                font-size: 11px
+            }
+
+            main {
+                padding: 28px 15px 55px
+            }
+
+            .hero {
+                padding: 35px 23px
+            }
+
+            .heading,
+            .page-heading {
+                align-items: flex-start;
+                flex-direction: column
+            }
+
+            .page-heading h1 {
+                font-size: 33px
+            }
+
+            .features,
+            .book-grid,
+            .club-grid,
+            .columns {
+                grid-template-columns: 1fr
+            }
+
+            .callout {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 15px
+            }
+
+            .toolbar {
+                flex-direction: column
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .panel {
+                padding: 17px
+            }
+
+            .chat-form {
+                flex-direction: column
+            }
+        }
+
+        /* Midnight Pages — monochrome library */
+        #booksPage {
+            color: #171717;
+        }
+        #booksPage .page-heading small { color: #2448d7; }
+        #booksPage .book-card {
+            background: #f5f5f5;
+            border: 1px solid #d4d4d4;
+            box-shadow: 0 8px 24px #0000000b;
+        }
+        #booksPage .cover {
+            color: #f8f8f8;
+            background: linear-gradient(145deg, #111111, #555555);
+            font-size: 38px;
+        }
+        #booksPage .book-info h3 { color: #171717; }
+        #booksPage .tag {
+            color: #303030;
+            background: #e5e5e5;
+        }
+        #booksPage .progress { background: #dedede; }
+        #booksPage .progress span { background: #333333; }
+        #booksPage .btn.primary {
+            color: #fff;
+            background: #202020;
+        }
+        #booksPage .btn.light {
+            color: #222;
+            background: #e5e5e5;
+        }
+        .admin-action {
+            display: inline-flex;
+            gap: 7px;
+            align-items: center;
+        }
+        .admin-action .text-btn { padding: 5px 8px; }
+        .admin-action .danger { color: #b42318; }
+        .admin-action .restore { color: #176b43; }
+
+    </style>
+</head>
+
+<body>
+    <header class="topbar">
+        <a class="brand" href="#" data-page="home"><b>◈</b> Midnight Pages</a>
+        <nav><button data-page="home" class="nav-link active">Home</button><button data-page="books"
+                class="nav-link">Books</button><button data-page="clubs" class="nav-link">Clubs</button><button
+                data-page="dashboard" class="nav-link">Dashboard</button></nav>
+        <div class="account"><span id="welcomeUser">Welcome, Reader</span><button id="loginOpen" class="btn light">Log
+                in</button><button id="registerOpen" class="btn primary">Sign up</button><button id="logoutButton"
+                class="btn light hidden">Log out</button></div>
+    </header>
+    <main>
+        <section id="homePage" class="page active">
+            <div class="hero">
+                <div><small>READ · DREAM · ACHIEVE</small>
+                    <h1>Turn Pages,<br><em>Travel Worlds.</em></h1>
+                    <p>Explore endless stories, uncover new perspectives and let your imagination wander.
+                    </p><button class="btn primary" data-go="books">Explore books →</button> <button class="btn outline"
+                        data-go="clubs">Explore clubs</button>
+                </div>
+                <div class="hero-book">🕮<strong>YOUR NEXT<br>CHAPTER</strong><span>Read more · Learn more</span></div>
+            </div>
+            <div class="heading">
+                <div><small>GET STARTED</small>
+                    <h2>Your Reading space</h2>
+                </div>
+                <p>Everything you need to make reading a shared experience.</p>
+            </div>
+            <div class="features">
+                <article><i>⌕</i>
+                    <h3>Discover books</h3>
+                    <p>Find your next read and organise your reading list.</p><button class="text-btn"
+                        data-go="books">Browse books →</button>
+                </article>
+                <article><i>♧</i>
+                    <h3>Join a club</h3>
+                    <p>Meet readers, exchange ideas, and learn as a group.</p><button class="text-btn"
+                        data-go="clubs">Find a club →</button>
+                </article>
+                <article><i>↗</i>
+                    <h3>Track progress</h3>
+                    <p>Record your reading progress and celebrate small wins.</p><button class="text-btn"
+                        data-go="dashboard">View dashboard →</button>
+                </article>
+            </div>
+            <div class="callout" id="signupCallout">
+                <div><small>START YOUR JOURNEY</small>
+                    <h2>One page at a time.</h2>
+                    <p>Create a demo account to save your activity on this device.</p>
+                </div><button class="btn primary" id="heroRegister">Create account</button>
+            </div>
+        </section>
+        <section id="booksPage" class="page">
+            <div class="page-heading">
+                <div><small>THE LIBRARY</small>
+                    <h1>Find your next read</h1>
+                </div><button class="btn primary" id="addBookOpen">＋ Add a book</button>
+            </div>
+            <div class="toolbar"><input id="bookSearch" placeholder="Search by title, author, or topic..."><select
+                    id="bookFilter">
+                    <option value="all">All categories</option>
+                    <option>Personal Growth</option>
+                    <option>Fiction</option>
+                    <option>Business</option>
+                    <option>Science</option>
+                </select></div>
+            <div id="bookGrid" class="book-grid"></div>
+        </section>
+        <section id="clubsPage" class="page">
+            <div class="page-heading">
+                <div><small>COMMUNITY</small>
+                    <h1>Reading clubs</h1>
+                </div><button class="btn primary" id="createClubOpen">＋ Create a club</button>
+            </div>
+            <div id="clubGrid" class="club-grid"></div>
+            <div id="clubDetail" class="panel hidden"></div>
+        </section>
+        <section id="dashboardPage" class="page">
+            <div class="page-heading">
+                <div><small>YOUR SPACE</small>
+                    <h1>Your dashboard</h1>
+                </div>
+            </div>
+            <div id="dashboardStats" class="stats"></div>
+            <div class="columns">
+                <div class="panel">
+                    <h2>My reading list</h2>
+                    <div id="myReadingList"></div>
+                </div>
+                <div class="panel">
+                    <h2>Recent activity</h2>
+                    <div id="activityList"></div>
+                </div>
+            </div>
+            <div class="panel">
+                <h2>Notifications <button id="clearNotifications" class="text-btn">Clear all</button></h2>
+                <div id="notificationList"></div>
+            </div>
+        </section>
+        <section id="adminPage" class="page">
+            <div class="page-heading">
+                <div><small>ADMINISTRATION</small>
+                    <h1>Admin panel</h1>
+                </div>
+            </div>
+            <div id="adminStats" class="stats"></div>
+            <div class="panel">
+                <h2>Registered users</h2>
+                <div id="adminUsers"></div>
+            </div>
+            <div class="panel">
+                <h2>Manage books</h2>
+                <div id="adminBooks"></div>
+            </div>
+            <div class="panel">
+                <h2>Manage clubs</h2>
+                <div id="adminClubs"></div>
+            </div>
+        </section>
+    </main>
+    <footer><a class="brand" href="#" data-page="home"><b>◈</b> Midnight Page</a>
+        <p>Read together. Learn together. Grow together.</p><small>Beginner-friendly demo · Data stays in this
+            browser.</small><p><small>@Copy-Paste Coders</small></p>
+    </footer>
+    <div id="modal" class="modal hidden">
+        <div class="modal-card"><button id="modalClose" class="close">×</button>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+    <div id="toast" class="toast"></div>
+    <script src="script.js"></script>
+</body>
+
+</html>
